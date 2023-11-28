@@ -41,6 +41,7 @@ function App() {
     // }
     // setEventos([...eventos])
   // }
+  
   // const deletarEvento = (id: number) => {
     // setEventos([...eventos.filter(evento => evento.id !== id)])
   // }
