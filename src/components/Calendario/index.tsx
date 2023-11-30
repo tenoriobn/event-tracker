@@ -5,6 +5,7 @@ import Kalend, { CalendarEvent, CalendarView, OnEventDragFinish } from 'kalend'
 import 'kalend/dist/styles/index.css';
 import useAtualizarEvento from '../../state/hooks/useAtualizarEvento';
 import useListaDeEventos from '../../state/hooks/useListaDeEventos';
+import { IEvento } from '../../interfaces/IEvento';
 
 interface IKalendEvento {
   id?: number
@@ -34,20 +35,18 @@ const Calendario: React.FC = () => {
     })
   })
 
+  // src/components/Calendario/index.tsx
   const onEventDragFinish: OnEventDragFinish = (
     kalendEventoInalterado: CalendarEvent,
-    kalendEventoAtualizado: CalendarEvent
+    KalendEventoAtualizado: CalendarEvent,
   ) => {
-    const evento = eventos.find(evento => evento.descricao === kalendEventoAtualizado.summary)
-    if (evento) {
-      const eventoAtualizado = {
-        ...evento
-      }
-      eventoAtualizado.inicio = new Date(kalendEventoAtualizado.startAt)
-      eventoAtualizado.fim = new Date(kalendEventoAtualizado.endAt)
-      atualizarEvento(eventoAtualizado)
-    }
-
+    const evento = {
+      id: KalendEventoAtualizado.id,
+      descricao: KalendEventoAtualizado.summary,
+      inicio: new Date(KalendEventoAtualizado.startAt),
+      fim: new Date(KalendEventoAtualizado.endAt)
+    } as IEvento
+    atualizarEvento(evento)
   };
 
   return (
